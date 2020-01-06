@@ -2,7 +2,7 @@ const mission = {
   speech:[
     "Bonjour, jeune aventurie. Te voila dans le donjon de la difficulté, je pense que si tu est ici c'est pour regler la difficulté du monde... Par contre fais attention donjon est spécial il faut avancé pas a pas. par exemple en dessous deux choix se présente a toi. Fais le bon ;)",
     "J'admire ton courage ! Maintenant on va tester tes technique de combat. Je te présente EPOUVANTAIL D'ENTRAÎNEMENT, bon courage ! Ensuite tu devras choisir entre descendre par le wagon de la mort ou l'escalier de la glissade.",
-    "<h1>GAME OVER !</h1>Dommage mais c'était le mauvais choix... Je t'invite a mieux réfléchir une prochaine fois...",
+    "<h1>GAME OVER !</h1>Dommage mais c'était le mauvais choix... Je t'invite a revenir jouer, a une prochaine fois!",
     "Ouf ! Bon choix ! Maintenant je crois que le reglage de difficulté est vers la droite... ou la gauche... euh je sais plus mais fais attention dans une des deux il y a un monstre terrifiant !",
     "J'ai nommé cet escalier car quand j'étais petit a chaque passage je tombais mais je me rappelle plus pourquoi.... Oh non! Ca y est je m'en rappelle ! Regarde là ! Derrière Toi ! Cette araignée géante me terrifier.",
     "Aller c'est parti tu peux tuer cette araignée géante !", // 5
@@ -34,9 +34,9 @@ const mission = {
     [] // 14 win
   ],
   perso:[
-    ["Guerrier", 100, 2, 1, "Les Guerriers sont entrainer et résistant. Ils ont 100pv, 2 points de résistance et 1 points de force"],
-    ["Agile", 80, 0.5, 5, "Les Agile sont rapide et font de gros dégâts mais très fragile. Ils ont 80pv, 0.5 points de résistance et 5 points de force"],
-    ["tank", 150, 10, 0.2, "Les tanks sont très solide et résistant mais n'arrive pas a attaquer force. Ils ont 150pv, 10 points de résistances et 0.2 points de force"]
+    ["Guerrier", 100, 2, 1, "<span style='text-decoration:underline'>Les Guerriers</span> sont entrainer et résistant.</span class='desc'> Ils ont 100pv, 2 points de résistance et 1 points de force</span><br>"],
+    ["Agile", 80, 0.5, 5, "<span style='text-decoration:underline'>Les Agile</span> sont rapide et font de gros dégâts mais très fragile.</span class='desc'> Ils ont 80pv, 0.5 points de résistance et 5 points de force</span><br>"],
+    ["tank", 150, 10, 0.2, "<span style='text-decoration:underline'>Les tanks</span> sont très solide et résistant mais n'arrive pas a attaquer force.</span class='desc'> Ils ont 150pv, 10 points de résistances et 0.2 points de force</span><br>"]
   ],
   combat:[
     [],
