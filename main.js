@@ -2,36 +2,60 @@
 // pr = point de resistance
 // pf = force
 const perso = {"hero": "none"}
+let fin = false;
 
 const rdn = (min, max) => {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
-const setText = (text) => {
+const setSpeech = (text) => {
   document.getElementById("text").innerHTML = text;
 };
 
 const setChoice = (choices) => {
-    for (let i = 0; i < choices.length; i++) {
-      let button = document.createElement("button");
-      button.textContent = choices[i];
-      document.getElementById("choice").appendChild(button).setAttribute("id", i);
-      document.getElementById(i).setAttribute("onclick", `Javascript:ouJeSuis(${i})`);
-    }
+  if (choices.length != 2) {
+    fin = true;
+  }
+  let i = 0;
+  choices[0].forEach(e => {
+    let button = document.createElement("button");
+    button.textContent = choices[0][i];
+    document.getElementById("choice").appendChild(button).setAttribute("id", i);
+    document.getElementById(i).setAttribute("onclick", `Javascript:ouJeSuis(${choices[1][i]})`);
+    i++;
+  });
 };
 
 function ouJeSuis(index) {
+  if (fin){
+    return;
+  }
   document.getElementById("text").innerHTML = "";
   document.getElementById("choice").innerHTML = "";
-  setText(mission.speech[index]);
-  setChoice(mission.reponse[index]);
-  if (mission.combat[index].length === 4){
-    let stremon = new personnage(mission.combat[index][0], mission.combat[index][1], mission.combat[index][2], mission.combat[index][3]);
-    while (stremon.) {
+  document.getElementById("stats").innerHTML = "";
+  setSpeech(mission.speech[index]);
+  console.log(mission.reponse[index].length);
+  if (mission.reponse[index].length > 0){
+    setChoice(mission.reponse[index]);
+  }if (mission.combat[index].length === 4){
+    kombatKouppa(new personnage(mission.combat[index][0], mission.combat[index][1], mission.combat[index][2], mission.combat[index][3]));
+  }
+  if (mission.reponse[index].length > 0) {
+    perso.hero.getStat();
+  }
+}
 
-    }
+function kombatKouppa(stremon){
+  if (stremon.getPv <= 0) {
+    document.getElementById("text").innerHTML += `<br><h4>Vous avez battu ${stremon.getNom}. il vous reste ${perso.hero.getPv}PV.</h4>`;
+  } else if (perso.hero.getPv <= 0) {
+    document.getElementById("text").innerHTML = `<h1>Game Over !</h1> Le montre ${stremon.getNom} Vous a battu.`;
+    document.getElementById("choice").innerHTML = "";
+    fin = true;
+  } else {
     perso.hero.attack(stremon);
     stremon.attack(perso.hero);
+    kombatKouppa(stremon)
   }
 }
 
@@ -57,7 +81,21 @@ class personnage {
   set setPf(pf){
     this.pf = pf;
   }
-  getter getPv
+  get getPv() {
+    return this.pv;
+  }
+  get getNom(){
+    return this.nom;
+  }
+  getStat(){
+    let div = document.getElementById("stats");
+    div.innerHTML = `
+    <h3>Statisque :</h3>
+    <p>Point de vie: ${this.pv}<br>
+    Point de resistance: ${this.pr}<br>
+    Point de force: ${this.pf}<br>
+    Experience: ${this.xp}</p>`;
+  }
   attack(cible){
     if (this.pv > 0){
       if (cible.pv > 0) {
@@ -65,11 +103,11 @@ class personnage {
         console.log(`tu inflige ${hit} a ${cible.nom}`);
         cible.setPv= cible.pv - hit;
         // Systeme d'xp
-        this.xp = rdn(2,25);
+        this.xp += rdn(2,25);
         // Level up!
-        if (this.xp > 50){
-          this.pr *= 1.2;
-          this.pf *= 1.2;
+        if (this.xp > 30){
+          this.setPr = this.pr * 1.2;
+          this.setPf = this.pf * 1.2;
           this.xp = 0;
         }
       } else {
@@ -78,7 +116,7 @@ class personnage {
     }
   }
   desc(){
-    return `${this.nom} a ${this.pv}PV, ${this.pr} de point de résistance, ${this.pf} de point de force et ${this.xp}XP.`;
+    console.log(`${this.nom} a ${this.pv}PV, ${this.pr} de point de résistance, ${this.pf} de point de force et ${this.xp}XP.`);
   }
 }
 
